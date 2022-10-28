@@ -17,6 +17,51 @@
             <td><%= flight.departs %></td>
         </tr>
     </tbody>
+</table> 
+<% if(flight.destination.length) { %>
+    <h3>Destination Details</h3>
+    <table>
+        <thead>
+            <th>Airport</th>
+            <th>Ariving</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= flight.destination[0].airport %></td>
+                <td><%= flight.destination[0].arrival %></td>
+            </tr>
+        </tbody>
+    </table> 
+<% } %>
+
+<% if(!flight.destination.length) { %>
+    <h3>Add Destination Details</h3>
+
+    <form action="/flights/<%= flight._id %>/details" method="POST">
+        <label>Airport:
+            <select name="airport">
+                <option value="AUS">AUS</option>
+                <option value="DFW">DFW</option>
+                <option value="DEN">DEN</option>
+                <option value="LAX">LAX</option>
+                <option value="SAN">SAN</option>
+                <option value="CHI">CHI</option>
+            </select>
+        </label>
+        <label>Arrival: 
+            <input type="datetime-local" name="arrival">
+        </label>
+        <button type="submit">Add Details</button>
+    </form>
+<% } %>
+<h3>Tickets</h3>
+<form id="add-ticket-form" action="/flights/<%= flight.id %>/tickets" method="POST">
+    <label>Seat:</label>
+    <input name="seat" required pattern="[A-F][1-9]\d?">
+    <label>Price:</label>
+    <input name="price" type="number">
+    <input type="submit" value="Add Ticket">
+  </form>
 
 
 <%- include('../partials/footer') %>
