@@ -7,10 +7,10 @@ module.exports = {
 
 function create(req, res) {
     req.body.flight = req.params.id
-    const ticket = new Ticket;
+    const ticket = new Ticket(req.body);
+    console.log(req.body);
     ticket.save(function(err) {
-        console.log(ticket);
-        res.redirect('flight/${req.params.id}');
+        res.redirect(`/flights/${req.params.id}`);
     });
 }
 
